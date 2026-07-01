@@ -1,6 +1,6 @@
 package com.library;
 
-import com.library.service.BookService;
+import com.library.controller.BookController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -11,9 +11,9 @@ public class LibraryManagementApplication {
 		ApplicationContext context =
 				new ClassPathXmlApplicationContext("applicationContext.xml");
 
-		BookService service =
-				(BookService) context.getBean("bookService");
+		BookController controller =
+				context.getBean("bookController", BookController.class);
 
-		service.displayService();
+		controller.execute();
 	}
 }

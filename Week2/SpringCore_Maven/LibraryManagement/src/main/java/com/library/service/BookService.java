@@ -6,12 +6,12 @@ public class BookService {
 
     private BookRepository bookRepository;
 
-    public void setBookRepository(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    public void displayService() {
-        System.out.println("Book Service: Calling repository...");
+    public void issueBook() {
+        System.out.println("Book Service: Issuing book...");
         bookRepository.displayBook();
     }
 }
