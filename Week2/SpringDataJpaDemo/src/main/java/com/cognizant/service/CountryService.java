@@ -20,13 +20,14 @@ public class CountryService {
         System.out.println("Country added successfully.");
     }
 
-    public void displayCountry() {
+    public void findCountryByCode(String code) {
 
-        Country country = countryRepository.findById("IN").orElse(null);
+        Country country = countryRepository.findByCode(code);
 
         if (country != null) {
-            System.out.println("Country Code : " + country.getCode());
-            System.out.println("Country Name : " + country.getName());
+            System.out.println("Country Found");
+            System.out.println("Code : " + country.getCode());
+            System.out.println("Name : " + country.getName());
         } else {
             System.out.println("Country not found.");
         }
