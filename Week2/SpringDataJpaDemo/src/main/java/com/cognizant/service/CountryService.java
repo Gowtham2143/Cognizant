@@ -48,4 +48,24 @@ public class CountryService {
             System.out.println(country.getCode() + " - " + country.getName());
         }
     }
+    public void findCountryByName(String name) {
+
+        Country country = countryRepository.findByName(name);
+
+        if (country != null) {
+            System.out.println("\nCountry Found by Name");
+            System.out.println("Code : " + country.getCode());
+            System.out.println("Name : " + country.getName());
+        } else {
+            System.out.println("Country not found.");
+        }
+    }
+    public void searchCountries(String keyword) {
+
+        System.out.println("\nCountries containing \"" + keyword + "\"");
+
+        for (Country country : countryRepository.findByNameContaining(keyword)) {
+            System.out.println(country.getCode() + " - " + country.getName());
+        }
+    }
 }
