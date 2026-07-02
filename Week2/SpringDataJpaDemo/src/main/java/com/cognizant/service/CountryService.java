@@ -32,4 +32,20 @@ public class CountryService {
             System.out.println("Country not found.");
         }
     }
+    public void addNewCountry(String code, String name) {
+
+        Country country = new Country(code, name);
+
+        countryRepository.save(country);
+
+        System.out.println(name + " added successfully.");
+    }
+    public void displayAllCountries() {
+
+        System.out.println("\nList of Countries:");
+
+        for (Country country : countryRepository.findAll()) {
+            System.out.println(country.getCode() + " - " + country.getName());
+        }
+    }
 }

@@ -22,5 +22,9 @@ public class SpringDataJpaDemoApplication implements CommandLineRunner {
 		countryService.addCountry();
 
 		countryService.findCountryByCode("IN");
+
+		countryService.addNewCountry("US", "United States");
+
+		countryService.displayAllCountries();
 	}
 }
