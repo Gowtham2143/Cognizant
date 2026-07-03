@@ -32,5 +32,7 @@ public class SpringDataJpaDemoApplication implements CommandLineRunner {
 		countryService.searchCountries("United");
 
 		countryService.displayAllCountries();
+		countryService.displayCountriesUsingNativeQuery();
+
 	}
 }

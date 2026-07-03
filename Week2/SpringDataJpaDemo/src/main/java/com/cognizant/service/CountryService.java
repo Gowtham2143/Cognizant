@@ -5,6 +5,8 @@ import com.cognizant.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CountryService {
 
@@ -20,6 +22,15 @@ public class CountryService {
         System.out.println("Country added successfully.");
     }
 
+    public void addNewCountry(String code, String name) {
+
+        Country country = new Country(code, name);
+
+        countryRepository.save(country);
+
+        System.out.println(name + " added successfully.");
+    }
+
     public void findCountryByCode(String code) {
 
         Country country = countryRepository.findByCode(code);
@@ -32,14 +43,7 @@ public class CountryService {
             System.out.println("Country not found.");
         }
     }
-    public void addNewCountry(String code, String name) {
 
-        Country country = new Country(code, name);
-
-        countryRepository.save(country);
-
-        System.out.println(name + " added successfully.");
-    }
     public void displayAllCountries() {
 
         System.out.println("\nList of Countries:");
@@ -48,6 +52,7 @@ public class CountryService {
             System.out.println(country.getCode() + " - " + country.getName());
         }
     }
+
     public void findCountryByName(String name) {
 
         Country country = countryRepository.findByName(name);
@@ -60,11 +65,34 @@ public class CountryService {
             System.out.println("Country not found.");
         }
     }
+
     public void searchCountries(String keyword) {
 
         System.out.println("\nCountries containing \"" + keyword + "\"");
 
         for (Country country : countryRepository.findByNameContaining(keyword)) {
+            System.out.println(country.getCode() + " - " + country.getName());
+        }
+    }
+
+    public void displayCountriesUsingHQL() {
+
+        System.out.println("\nCountries using HQL");
+
+        List<Country> countries = countryRepository.getAllCountriesHQL();
+
+        for (Country country : countries) {
+            System.out.println(country.getCode() + " - " + country.getName());
+        }
+    }
+
+    public void displayCountriesUsingNativeQuery() {
+
+        System.out.println("\nCountries using Native Query");
+
+        List<Country> countries = countryRepository.getAllCountriesNative();
+
+        for (Country country : countries) {
             System.out.println(country.getCode() + " - " + country.getName());
         }
     }
