@@ -1,13 +1,14 @@
-<h1>Welcome to Student Course Portal</h1>
-
-<p>
-  Manage your courses and student profile easily.
-</p>
-
 <hr>
 
-<h3>Statistics</h3>
+<h2>Available Courses</h2>
 
-<p>Courses Available : 12</p>
-<p>Enrolled : 3</p>
-<p>GPA : 3.8</p>
+@for(course of courses; track course){
+
+<app-course-card
+  [courseName]="course"
+  (enroll)="onCourseEnroll($event)">
+</app-course-card>
+
+}
+
+<p><strong>Selected Course:</strong> {{ selectedCourse }}</p>
