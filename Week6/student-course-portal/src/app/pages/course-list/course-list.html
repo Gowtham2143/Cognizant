@@ -1,1 +1,19 @@
-<p>course-list works!</p>
+<h2>Course List</h2>
+
+<p *ngIf="isLoading">
+  Loading courses...
+</p>
+
+<div *ngIf="!isLoading">
+
+  <app-course-card
+    *ngFor="let course of courses; trackBy: trackByCourseId"
+    [course]="course"
+    (enrollRequested)="onEnroll($event)">
+  </app-course-card>
+
+</div>
+
+<p *ngIf="selectedCourseId">
+  <strong>Selected Course ID:</strong> {{ selectedCourseId }}
+</p>

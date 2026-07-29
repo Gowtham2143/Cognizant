@@ -9,16 +9,22 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+import { Highlight } from '../../directives/highlight';
+import { CreditLabelPipe } from '../../pipes/credit-label-pipe';
+
 @Component({
   selector: 'app-course-card',
-  imports: [],
+  imports: [CommonModule, Highlight, CreditLabelPipe],
   templateUrl: './course-card.html',
   styleUrl: './course-card.css',
 })
 export class CourseCard implements OnInit, OnDestroy, OnChanges {
-  @Input() courseName = '';
+  @Input() course: any;
 
-  @Output() enroll = new EventEmitter<string>();
+  @Output() enrollRequested = new EventEmitter<number>();
+
+  isExpanded = false;
 
   ngOnInit(): void {
     console.log('CourseCard Initialized');
@@ -32,7 +38,21 @@ export class CourseCard implements OnInit, OnDestroy, OnChanges {
     console.log('CourseCard Destroyed');
   }
 
-  enrollCourse() {
-    this.enroll.emit(this.courseName);
+  enrollCourse(): void {
+    this.enrollRequested.emit(this.course.id);
+  }
+
+  toggleDetails(): void {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  get cardClasses() {
+    return {
+      'card--enrolled': this.course.enrolled,
+      'card--passed': this.course.gradeStatus === 'Passed',
+      'card--failed': this.course.gradeStatus === 'Failed',
+      expanded: this.isExpanded,
+    };
   }
 }
+

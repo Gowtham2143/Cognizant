@@ -1,14 +1,13 @@
-<hr>
-
-<h2>Available Courses</h2>
-
-@for(course of courses; track course){
+<h2>Home</h2>
 
 <app-course-card
-  [courseName]="course"
-  (enroll)="onCourseEnroll($event)">
+  [course]="{
+    id: 1,
+    name: 'Angular',
+    code: 'ANG101',
+    credits: 3,
+    gradeStatus: 'Passed',
+    enrolled: true
+  }"
+  (enrollRequested)="onCourseEnroll($event)">
 </app-course-card>
-
-}
-
-<p><strong>Selected Course:</strong> {{ selectedCourse }}</p>
