@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourseCard } from '../../components/course-card/course-card';
 
+import { CourseService, Course } from '../../services/course';
+import { EnrollmentService } from '../../services/enrollment';
+import { NotificationService } from '../../services/notification';
+
 @Component({
   selector: 'app-course-list',
   imports: [CommonModule, CourseCard],
@@ -10,64 +14,33 @@ import { CourseCard } from '../../components/course-card/course-card';
 })
 export class CourseList implements OnInit {
   isLoading = true;
-
   selectedCourseId: number | null = null;
 
-  courses = [
-    {
-      id: 1,
-      name: 'Angular',
-      code: 'ANG101',
-      credits: 3,
-      gradeStatus: 'Passed',
-      enrolled: true,
-    },
-    {
-      id: 2,
-      name: 'Java Programming',
-      code: 'JAVA201',
-      credits: 4,
-      gradeStatus: 'In Progress',
-      enrolled: false,
-    },
-    {
-      id: 3,
-      name: 'Python',
-      code: 'PY301',
-      credits: 2,
-      gradeStatus: 'Passed',
-      enrolled: true,
-    },
-    {
-      id: 4,
-      name: 'Database Systems',
-      code: 'DB401',
-      credits: 3,
-      gradeStatus: 'Failed',
-      enrolled: false,
-    },
-    {
-      id: 5,
-      name: 'Operating Systems',
-      code: 'OS501',
-      credits: 1,
-      gradeStatus: 'In Progress',
-      enrolled: true,
-    },
-  ];
+  courses: Course[] = [];
+
+  constructor(
+    private courseService: CourseService,
+    private enrollmentService: EnrollmentService,
+    public notificationService: NotificationService,
+  ) {}
 
   ngOnInit(): void {
+    this.courses = this.courseService.getCourses();
+
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);
   }
 
-  trackByCourseId(index: number, course: any): number {
+  trackByCourseId(index: number, course: Course): number {
     return course.id;
   }
 
   onEnroll(courseId: number): void {
-    console.log('Enrolling:', courseId);
-    this.selectedCourseId = courseId;
+    if (this.enrollmentService.enroll(courseId)) {
+      this.selectedCourseId = courseId;
+      this.notificationService.setMessage('Enrollment successful for Course ID: ' + courseId);
+      console.log(this.notificationService.getMessage());
+    }
   }
 }

@@ -17,3 +17,7 @@
 <p *ngIf="selectedCourseId">
   <strong>Selected Course ID:</strong> {{ selectedCourseId }}
 </p>
+
+<p *ngIf="notificationService.getMessage()">
+  <strong>{{ notificationService.getMessage() }}</strong>
+</p>
